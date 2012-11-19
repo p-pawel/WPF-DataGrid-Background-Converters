@@ -1,0 +1,85 @@
+﻿<Window x:Class="TempWpfApplication1.Window1"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:TempWpfApplication1"
+     
+    Title="WPF DataGrid Background Converters"
+    Height="300"
+    Width="300"
+    >
+    <Grid>
+        <DataGrid AutoGenerateColumns="False" Name="dataGrid1">
+            <DataGrid.Columns>
+             
+                <DataGridTextColumn Header="No1" Binding="{Binding Path=No1}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Background" Value="{Binding Path=No1, Converter={x:Static local:NumToBkColorConverter.Instance}}"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Header="No2" Binding="{Binding Path=No2}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Background">
+                                <Setter.Value>
+                                    <MultiBinding Converter="{x:Static local:NumToBkColorConverter2.Instance}">
+                                        <Binding Path="."/>
+                                        <Binding Path="No2"/>
+                                    </MultiBinding>
+
+                                </Setter.Value>
+
+                            </Setter>
+                            <!--Value="{Binding Path=dupa, Converter={x:Static local:NumToBkColorConverter.Instance}}"/>-->
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+
+                </DataGridTextColumn>
+
+
+
+                <DataGridTextColumn Header="Sum" Binding="{Binding Path=Sum}" IsReadOnly="True">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Background" Value="{Binding Path=Sum, Converter={x:Static local:NumToBkColorConverterA.Instance}}"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+
+                </DataGridTextColumn>
+
+
+
+                <DataGridTextColumn Header="Sum &amp; Equal" Binding="{Binding Path=Sum}" IsReadOnly="True">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Background">
+                                <Setter.Value>
+                                    <MultiBinding Converter="{x:Static local:NumToBkColorConverter2A.Instance}">
+                                        <Binding Path="."/>
+                                        <!--<Binding Path="No1"/>
+                                        <Binding Path="No2"/>-->
+
+                                        <Binding Path="Sum"/>
+                                    </MultiBinding>
+
+                                </Setter.Value>
+
+                            </Setter>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+
+                </DataGridTextColumn>
+            </DataGrid.Columns>
+
+
+            <DataGrid.CellStyle>
+                <Style TargetType="DataGridCell">
+                    <Setter Property="BorderBrush" Value="{Binding Path=No1, Converter={x:Static local:NumToBkColorConverter.Instance}}"/>
+                </Style>
+            </DataGrid.CellStyle>
+        </DataGrid>
+    </Grid>
+</Window>
